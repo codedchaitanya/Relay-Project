@@ -1,0 +1,17 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "services": {
+    "api": { "runtime": "container", "root": "./", "entrypoint": "Dockerfile.api" }
+  },
+  "rewrites": [
+    { "source": "/(.*)", "destination": { "service": "api" } }
+  ],
+  "daemons": {
+    "worker": {
+      "root": "./",
+      "entrypoint": "Dockerfile",
+      "instances": { "iad1": 1 },
+      "resources": { "requests": { "memory": "1Gi" } }
+    }
+  }
+}
