@@ -1,0 +1,74 @@
+from typing import Literal
+
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+class Settings(BaseSettings):
+    database_url: str
+    dev_tenant_id: str
+    lease_seconds: int = 90
+    relay_api_key: str | None = None  # safety slice: unset -> /v1 refuses every request
+    # Deployment: a key of a DEMO-mode tenant that the public page offers to visitors.
+    # /demo-config re-checks the tenant's mode on every request and never reveals a
+    # key whose tenant is live (paid), so a misconfiguration can't publish spending.
+    public_demo_key: str | None = None
+    # ── LLM (Day 4) ─────────────────────────────────────────────
+    llm_provider: Literal["fake", "anthropic", "gemini"] = "fake"
+    model_planner: str = "fake-planner"
+    model_cheap: str = "fake-cheap"
+    tools_provider: Literal["fake", "real"] = "fake"
+    # ── Real tools (P2): Tavily search + pinned-IP page fetcher ─
+    tavily_api_key: str | None = None  # required when tools_provider = "real"; never logged
+    page_text_max_chars: int = (
+        8000  # ~2k tokens of page text per fetch: the model's main input cost
+    )
+    fake_delay_seconds: float = 0.0  # Day 6: slow the fake model down so a run can be killed
+    # ── Real model (P1) ─────────────────────────────────────────
+    # The key itself is read by the SDK from ANTHROPIC_API_KEY; it never passes
+    # through Settings, so it can't end up in a log of the settings object.
+    anthropic_model: str = "claude-haiku-5-5"  # the cheapest current model: the dev default
+    llm_effort: Literal["low", "medium", "high"] = (
+        "medium"  # Haiku 5.5's own default; P3 measures low
+    )
+    llm_max_tokens: int = 8000  # per reply, thinking included; a final record is ~1k
+    llm_timeout_seconds: float = 60.0  # keep LEASE_SECONDS well above this in deployment
+    llm_prompt_cache: bool = True  # P3: cache the stable prefix (system + tools + history)
+    # Per real-model run (`live` and `public_real`). Priced at Gemini 3.5
+    # Flash-Lite's PAID rates a 15-turn run comes to ~$0.10-0.15, so 0.25 is
+    # ~2x headroom; on the free tier the real bill is $0 either way.
+    live_run_budget_usd: float = 0.25
+    # ── Real model, free tier (P7: Gemini) ──────────────────────
+    # The key is read from GEMINI_API_KEY by the adapter and sent as a header;
+    # like the Anthropic key it never passes through Settings, so it cannot end
+    # up in a log of the settings object.
+    gemini_model: str = "gemini-3.5-flash-lite"  # a current stable Flash-Lite, on the free tier
+    gemini_max_output_tokens: int = (
+        16000  # Gemini counts thinking inside this limit, so it sits above llm_max_tokens
+    )
+    # P3 on Gemini: "" sends no thinking config, so each model uses its own default.
+    # Opt-in because the spelling differs by generation (see gemini_client.py).
+    gemini_thinking_level: Literal["", "low", "medium", "high"] = ""
+    # Option A: how many real-AI runs ALL public visitors share per day. Counted
+    # in Postgres, so the cap holds across workers and restarts. 0 = off.
+    public_real_runs_per_day: int = 30
+    # ── P5: a stronger model as a last resort (real provider only; "" = off) ─
+    # One pair per provider: a run only ever escalates inside its own provider's
+    # family (factory.escalation_model() drops a cross-family id).
+    escalation_model: str = "claude-sonnet-5-5"  # repair rung 3: one try after Haiku's re-ask fails
+    fallback_model: str = "claude-sonnet-5-5"  # when the primary is still down after its retries
+    gemini_escalation_model: str = "gemini-3.8-flash"  # rung 3 for a Gemini run
+    gemini_fallback_model: str = "gemini-3.8-flash"  # a Gemini run's outage fallback
+    # ── Retries + circuit breaker (Day 8) ───────────────────────
+    breaker_threshold: int = 5  # consecutive failures before a tool's breaker opens
+    # ── Repair ladder (Day 9) ───────────────────────────────────
+    repair_attempts: int = 1  # rung-2 re-asks allowed per run (0 = ladder is rungs 0-1 only)
+    breaker_open_seconds: float = 30.0  # how long an open breaker waits before one probe
+    # Fault injection for proofs only; all default off. Fake external tools only.
+    fake_tool_failure_rate: float = 0.0  # chance per call of an injected 503
+    fake_tool_down: str = ""  # name of one fake tool that always fails (an outage)
+    fake_model_failure_rate: float = 0.0  # chance per model call of an injected 503
+    fake_broken_final: str = ""  # Day 9 proofs: break the fake's final answer (see fake_script)
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+
+
+settings = Settings()  # type: ignore[call-arg]  # values come from .env

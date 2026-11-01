@@ -1,0 +1,84 @@
+import argparse
+import secrets
+
+import bcrypt
+
+from relay.db import pool
+
+
+def create_api_key(cur, tenant_id: str) -> str:
+    prefix = "rly_" + secrets.token_hex(4)
+    secret = secrets.token_urlsafe(24)
+
+    secret_hash = bcrypt.hashpw(secret.encode(), bcrypt.gensalt()).decode()
+
+    cur.execute(
+        """
+        INSERT INTO api_keys (tenant_id, key_prefix, key_hash, name)
+        VALUES (%s, %s, %s, %s)
+        """,
+        (tenant_id, prefix, secret_hash, "dev key"),
+    )
+
+    return f"{prefix}.{secret}"
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Create a tenant (default 'dev') and its API key")
+    parser.add_argument("--tenant", default="dev", help="tenant name (Day 10: second tenants too)")
+    parser.add_argument(
+        "--mode",
+        choices=["demo", "live"],
+        default=None,
+        help="P1: 'live' = this tenant's runs use the real model and cost money; "
+        "'demo' = the free fake model (the default for new tenants)",
+    )
+    args = parser.parse_args()
+
+    with pool.connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute("SELECT id FROM tenants WHERE name = %s", (args.tenant,))
+            row = cur.fetchone()
+
+            if row is None:
+                cur.execute(
+                    "INSERT INTO tenants (name) VALUES (%s) RETURNING id",
+                    (args.tenant,),
+                )
+                row = cur.fetchone()
+                if row is None:
+                    raise RuntimeError("tenant insert returned no row")
+                print("created tenant")
+            else:
+                print("tenant already exists")
+
+            tenant_id = row[0]
+            if args.mode is not None:
+                cur.execute(
+                    "UPDATE tenants SET run_mode = %s WHERE id = %s", (args.mode, tenant_id)
+                )
+                print(f"tenant {args.tenant!r} run_mode = {args.mode}")
+
+            cur.execute(
+                "SELECT count(*) FROM api_keys WHERE tenant_id = %s",
+                (tenant_id,),
+            )
+            count_row = cur.fetchone()
+            existing = count_row[0] if count_row else 0
+
+            if existing:
+                full_key = None
+                print(f"api key already exists ({existing}) — not creating another")
+            else:
+                full_key = create_api_key(cur, tenant_id)
+
+    print(f"tenant {args.tenant!r}: id {tenant_id}")
+    if full_key:
+        print(f"RELAY_API_KEY={full_key}")
+        print("^^ save this in .env now — it cannot be recovered")
+
+    pool.close()
+
+
+if __name__ == "__main__":
+    main()

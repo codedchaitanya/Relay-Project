@@ -1,0 +1,63 @@
+[build-system]
+requires = ["setuptools>=77.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "relay"
+version = "0.1.0"
+description = "A durable execution runtime for AI agents"
+requires-python = ">=3.13"
+
+dependencies = [
+    "fastapi",
+    "uvicorn[standard]",
+    "psycopg[binary,pool]",
+    "alembic",
+    "pydantic",
+    "pydantic-settings",
+    "structlog",
+    "bcrypt",
+    # P1: the official Anthropic SDK for the real model (2.x sends API version 2026-10-21)
+    "anthropic>=2.3,<3",
+    # P7: the Gemini adapter speaks the REST API over the same HTTP client the
+    # Anthropic SDK already ships, so this adds nothing to the image. Declared
+    # anyway: relying on another package's dependency is not a dependency.
+    "httpx2",
+    # Day 17 observability
+    "prometheus-client",
+    "opentelemetry-sdk",
+    "opentelemetry-exporter-otlp-proto-http",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff",
+    "mypy",
+    "pytest",
+    "httpx",
+    "cryptography",  # test-only: a throwaway TLS cert for the pinned-fetch tests
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "UP", "B"]
+
+[tool.ruff.lint.isort]
+known-third-party = ["alembic"]
+
+[tool.mypy]
+python_version = "3.13"
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_unreachable = true
+no_implicit_optional = true
+check_untyped_defs = true
+
+[tool.setuptools.packages.find]
+include = ["relay*"]
+
+[tool.setuptools.package-data]
+relay = ["api/static/*.html"]  # the demo page travels with the package
