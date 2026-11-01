@@ -52,7 +52,7 @@ Instead of an agent loop living in a process that dies when the process dies, ev
 | Claude adapter (Haiku 5.5 via the official SDK, thinking blocks replayed verbatim; rung-3 escalation to Sonnet 5.5) | ✅ built and tested through the SDK with a mock transport ($0); **unused — no Anthropic key**, kept for the day there is one (details: [`learn/P1_REAL_MODEL.md`](learn/P1_REAL_MODEL.md)) |
 | Eval harness: field scoring vs a hand-labelled golden set, Gemini Flash-Lite judge for `industry`, accuracy + precision (flagging = abstaining), CI gate on committed live results | ✅ built and run live on 20 labelled companies: 0.85 on the factual fields, 0.83 overall (0.76 under the judge's first rule) (details: [`learn/P6_EVAL.md`](learn/P6_EVAL.md), [`learn/P6_LIVE_EVAL.md`](learn/P6_LIVE_EVAL.md); judge moved to Gemini: [`learn/P5_GEMINI.md`](learn/P5_GEMINI.md)) |
 | CI (GitHub Actions: ruff, mypy, all tests on Postgres 16, eval gate; no secrets, no paid calls) | ✅ added |
-| Public deployment | ✅ **live at [relay-sakshi.onrender.com](https://relay-sakshi.onrender.com)** (Render free plan: one container with API + 2 workers, Neon; visitors get a free demo-tenant key, never a paid one; first visit after idle takes ~1 min to wake — [`learn/DEPLOY_RENDER.md`](learn/DEPLOY_RENDER.md)). The Oracle VM path ([`learn/DEPLOY.md`](learn/DEPLOY.md)) stays for a future always-on server |
+| Public deployment | ✅ **live at [relay-project-murex.vercel.app](https://relay-project-murex.vercel.app/)** (Vercel: API service + 1 worker daemon, Neon; visitors get a free demo-tenant key, never a paid one). The Oracle VM path ([`learn/DEPLOY.md`](learn/DEPLOY.md)) stays for a future always-on server |
 
 ---
 
