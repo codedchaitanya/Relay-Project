@@ -295,7 +295,7 @@ anyway. The page shows that honestly rather than hiding it.
 
 ### On Render: `b0a3aea7`
 
-Same day, 11:50 UTC, on the deployed site (`relay-sakshi.onrender.com`, Render
+Same day, 11:50 UTC, on the deployed site (a Render test deploy, Render
 Free plan, Postgres on **Neon**). `/demo-config` reported `real_ai: true`,
 `gemini-3.5-flash-lite`, 30 of 30 runs left. A script did what a visitor does:
 fetch the demo key from `/demo-config`, `POST /v1/runs` with `real_ai: true`

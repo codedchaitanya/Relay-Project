@@ -43,7 +43,7 @@ locally with exactly those limits before any sign-up:
 
 ### Live on Render (29 Oct 2026)
 
-- URL: https://relay-sakshi.onrender.com (service `relay-sakshi`, Singapore,
+- Service: a Render test deploy (Singapore,
   Free plan, Dockerfile `./deploy/single/Dockerfile`, health check `/healthz`).
 - **Branch: `main`.** Render builds `main`, so merging a PR is a deploy. The
   old `deploy-render` branch was deleted on 29 Oct (it was at `36605ba`, with
