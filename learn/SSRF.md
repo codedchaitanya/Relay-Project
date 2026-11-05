@@ -59,7 +59,7 @@ written in `ssrf.py`'s contract.
   still fetched; `http://169.254.169.254/latest/meta-data/` comes back
   `ok=False "blocked … only https URLs may be fetched"`.
 
-## 5. Questions to answer yourself
+## 5. Design Q&A
 
 1. Why is fetching a URL the model picked dangerous at all?
 2. Why check the IP after DNS instead of checking the URL text?
@@ -85,7 +85,7 @@ written in `ssrf.py`'s contract.
 
 </details>
 
-## 6. Interview lines
+## 6. Key points
 
 - "`fetch_page` is guarded against SSRF: https only, and every resolved IP must be
   publicly routable, so the cloud metadata endpoint and internal ranges are

@@ -85,7 +85,7 @@ cap is per run, not per day.
 Unit tests: `tests/test_replay.py` adds "spent = sum of `model_call` costs" and
 "`budget_exceeded` present → failed" (12 tests pass).
 
-## 6. Questions to answer yourself
+## 6. Design Q&A
 
 1. Why does the API answer 503, not 200, when `RELAY_API_KEY` isn't set?
 2. Why `hmac.compare_digest` instead of `==`?
@@ -121,7 +121,7 @@ Unit tests: `tests/test_replay.py` adds "spent = sum of `model_call` costs" and
 
 </details>
 
-## 7. Interview lines
+## 7. Key points
 
 - "Every `/v1` route needs a bearer key, compared in constant time. If the key
   isn't configured, the API refuses requests rather than running open."

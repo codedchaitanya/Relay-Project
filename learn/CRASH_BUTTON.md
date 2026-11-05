@@ -69,7 +69,7 @@ lease + fencing / replay). SSE as before: the stream's 2 s fingerprint re-check
 already covers takeovers (lease_owner is in the fingerprint), so the countdown
 needed no new push path — only the two extra columns.
 
-## 6. Questions
+## 6. Design Q&A
 
 <details><summary>Why does the worker check only at the heartbeat, not mid-tool?</summary>
 The heartbeat runs at the top of every agent turn, i.e. between ledger writes.
@@ -91,7 +91,7 @@ the button re-arms; a second kill then just demonstrates attempt 3. The
 attempt ceiling (`max_attempts`) still bounds the run.
 </details>
 
-## 7. Interview lines
+## 7. Key points
 
 - "The landing page's demo button is the architecture: the API can't reach the
   worker, so 'kill yourself' is a row the worker polls — the same ledger-first

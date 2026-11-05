@@ -166,7 +166,7 @@ flakiness only ~2.7% of calls exhaust their retries — and even those come back
 to the model as an honest "failed after 3 attempts" observation, not a crash.
 </details>
 
-## 9. Questions for you to answer later
+## 9. Design Q&A
 
 1. Why does the sleep between retries need to be RANDOM, not fixed?
 2. The breaker opens after 5 *consecutive* failures. Why consecutive, not
@@ -200,7 +200,7 @@ to the model as an honest "failed after 3 attempts" observation, not a crash.
    honest behaviour; the fallback provider arrives with the real-model switch.
 </details>
 
-## 10. Interview lines
+## 10. Key points
 
 - "Transient failures are retried with full-jitter exponential backoff, but the
   retries happen *inside* a ledger step — failed attempts never pollute the

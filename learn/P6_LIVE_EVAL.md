@@ -145,7 +145,7 @@ This sorting is a judgement call from the outputs alone, not a verified re-check
 - 20 companies is a small set, and most came from one person's search: treat these as a first
   reading, not a precise rate.
 
-## 11. Questions to answer yourself
+## 11. Design Q&A
 
 1. The score went from 0.76 to 0.83 without the agent changing. What changed, and how do you say that
    honestly?
@@ -173,7 +173,7 @@ This sorting is a judgement call from the outputs alone, not a verified re-check
    research was done and already paid for.
 </details>
 
-## 12. Interview lines
+## 12. Key points
 
 - "I hand-labelled 20 companies and scored the agent field by field: 0.85 on the factual fields, and 0.83
   overall once the free-text industry field is included."

@@ -111,7 +111,7 @@ in the probes). The retries are what got these runs through.
 **After the merge:** a public real-AI run that fails validation twice can now call 3.8
 Flash. It's free tier and budget-capped, but it uses the same Google quota.
 
-## 7. Questions to answer yourself
+## 7. Design Q&A
 
 1. Why does `escalation_model()` return `""` for a Claude id on a Gemini run, instead
    of raising an error?
@@ -142,7 +142,7 @@ Flash. It's free tier and budget-capped, but it uses the same Google quota.
    the run. Fencing rejects the old worker's writes, so the only cost is wasted requests.
 </details>
 
-## 8. Interview lines
+## 8. Key points
 
 - "Each provider has its own last-resort model, and the factory refuses ids from the
   other family, so a config mistake can't put a model on a path that can't call it."

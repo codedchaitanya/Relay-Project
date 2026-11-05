@@ -86,7 +86,7 @@ per-tenant: other tenants don't queue behind it.
   (bcrypt) then `202 0.007s` (cache); env key still 202 as the dev tenant; the
   new tenant gets **404** for the dev tenant's run id.
 
-## 7. Questions to answer yourself
+## 7. Design Q&A
 
 1. Why does the key have a *prefix* at all — why not look up by the hash of the
    whole key?
@@ -130,7 +130,7 @@ per-tenant: other tenants don't queue behind it.
    is mechanical if it ever matters.
 </details>
 
-## 8. Interview lines
+## 8. Key points
 
 - "API keys are prefix-plus-secret: the prefix is an indexed address, the
   secret is bcrypt-checked and never appears in a query, and a verified key is

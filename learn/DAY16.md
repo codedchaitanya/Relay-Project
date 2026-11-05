@@ -187,7 +187,7 @@ with a real model (seconds per call), it would matter even less.
 | mid-write, transaction open (A2 kill) | receipt `in_flight`, **no** company row (rolled back) | re-issue writes once |
 | right before `mark_succeeded` | `final` in the ledger | new owner replays, sees `final`, finishes it; the zombie's finish is refused by `lease_owner = me` |
 
-## 8. Questions to answer yourself
+## 8. Design Q&A
 
 1. In §4 the zombie's writes were accepted and the new owner was fenced. Why is
    that still correct?
@@ -230,7 +230,7 @@ with a real model (seconds per call), it would matter even less.
    is the realistic case: a real model call takes seconds.
 </details>
 
-## 9. Interview lines
+## 9. Key points
 
 - "I didn't just build idempotency — I raced it: 4 processes per key with the
   write window held open so every racer got past the receipt check, plus 200

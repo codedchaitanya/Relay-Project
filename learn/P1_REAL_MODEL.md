@@ -108,7 +108,7 @@ received are the ones worker B sent back.
 `python -m scripts.live_smoke --yes-spend --runs 3` (estimate ~$0.02, hard stop
 $0.10), after the owner's go.
 
-## 7. Questions to answer yourself
+## 7. Design Q&A
 
 1. Why can't replay rebuild an assistant turn from its text and tool calls any more?
 2. Why is a refusal returned as a `Response` and not raised as an error?
@@ -140,7 +140,7 @@ $0.10), after the owner's go.
    down as an `error` step at the right index instead of crashing the worker.
 </details>
 
-## 8. Interview lines
+## 8. Key points
 
 - "The real model is an adapter behind the same `LLMClient` protocol; I tested it
   through the official SDK with a mock HTTP transport, so serialization, headers

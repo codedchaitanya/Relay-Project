@@ -87,7 +87,7 @@ multiply the bill.
 (~5 runs, ~$0.20) can force rung 3 with a domain the model can't settle, after
 the owner's go.
 
-## 7. Questions to answer yourself
+## 7. Design Q&A
 
 1. Why is affordability checked with a *pessimistic* estimate, and before the call?
 2. Why is escalation sticky for a run, but the fallback isn't?
@@ -116,7 +116,7 @@ the owner's go.
    durability harnesses.
 </details>
 
-## 8. Interview lines
+## 8. Key points
 
 - "The cheap model does the work; a stronger model is a last resort for two cases,
   a final answer that survives a re-ask still invalid, or the primary staying down

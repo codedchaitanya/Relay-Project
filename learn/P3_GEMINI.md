@@ -71,7 +71,7 @@ turns used different levels.
 - The `low` level with real tools. The eval ran at the default: $0.0079 a run.
 - Five runs a level is a small sample: enough to show the size of the gap, not a precise rate.
 
-## 8. Questions to answer yourself
+## 8. Design Q&A
 
 1. Why didn't the cheaper setting become the default?
 2. Why is the saving mostly in output tokens?
@@ -90,7 +90,7 @@ turns used different levels.
    request on deploy, when the point was for this to be opt-in.
 </details>
 
-## 9. Interview lines
+## 9. Key points
 
 - "I measured thinking levels side by side on the same domains: low cost about 45% less.
   I didn't ship it, because those runs couldn't measure accuracy, and the eval can."

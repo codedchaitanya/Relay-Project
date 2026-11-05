@@ -102,48 +102,47 @@ First end-to-end run `55d5c198`: 11 ledger rows (0–10), status `succeeded`, Ac
 - Dies between `tool_call` and `tool_result`: "about to run, unknown whether it happened".
   Fine for read-only `web_search`; dangerous for `save_company` → Day 7 idempotency.
 
-### Owed
-- `MAX_TURNS = 2` sabotage (never observed).
-- Say the 5 loop sentences from memory at the start of Day 6.
+### Not exercised in a live run
+- Hitting the turn cap (`MAX_TURNS`). Replay's handling of a `max_turns` error row is covered in `tests/test_replay.py`.
 
-### Gotchas learned
+### Gotchas
 - Port 8000 is taken by another Python program → API on `--port 8001`.
 - A rebuild ends `logs -f` → restart it. Same worker ids after a rebuild = the edit wasn't saved.
 - `show_steps` takes the run id, not the worker id.
 
 ## Day 6 — Replay
 
-See learn/DAY6.md. Explain-back owed.
+See learn/DAY6.md.
 Proofs: kill mid-run `7b0200c8` (resumed at step 4, 3 `model_call`, 11 rows),
 kill mid-`fetch_page` `efbc7f52` (new `tool_call` row for the re-run, 12 rows).
 
 ## Day 7 — Write tools + idempotency
 
-See learn/DAY7.md. Explain-back owed.
+See learn/DAY7.md.
 Proofs: kill after `save_company` committed `bf7b65a7` and before it committed `fa4340ca`:
 1 company row each, receipt `attempts = 2, executions = 1`.
 
 ## Safety slice — API key + budget cap
 
-See learn/SAFETY.md. Explain-back owed.
+See learn/SAFETY.md.
 Proofs: 401 without / with a wrong key, 202 with the key; budget run `e8280abe`
 (1 `model_call`, then `budget_exceeded`, `failed`).
 
 ## Demo page
 
-See learn/FRONTEND.md. Explain-back owed.
+See learn/FRONTEND.md.
 Proof: run `783a03b3` started from the page, owner killed after step 3, takeover banner
 at step 4, succeeded (screenshot `learn/img/frontend-takeover.jpg`).
 
 ## Chaos harness
 
-See learn/CHAOS.md. Explain-back owed.
+See learn/CHAOS.md.
 200 runs, 196 killed mid-run, 196 succeeded; 0 repeated model calls, 0 duplicate companies,
 0 write effects committed twice; median resume 15.8 s (lease 15 s, fake delay 1.5 s).
 
 ## SSRF guard (Day 12, simple version)
 
-See learn/SSRF.md. Explain-back owed.
+See learn/SSRF.md.
 `relay/agent/ssrf.py`: https only, resolved IPs must be public, redirects re-checked (max 3).
 24 unit tests with a stub DNS. The real fetcher must use it with DNS + 2 MB / 10 s caps.
 
@@ -300,7 +299,7 @@ NOT YET BUILT: no Docker in the dev container; the first build is on the server.
 
 Checked on the Windows host; see the README "Verified so far" entry (runs `fd340fcd`, `237c86e0`).
 Fixes found: SSE's LISTEN skips Neon's pooler (learn/DAY11.md); the fencing harness refuses to run on Windows
-(no SIGSTOP), the repair/DLQ harness kills with `proc.kill()` so it works there too. Explain-back owed.
+(no SIGSTOP), the repair/DLQ harness kills with `proc.kill()` so it works there too.
 
 ## Deploy target change: Render free plan (29 Oct)
 

@@ -66,7 +66,7 @@ tenant's run gets `event: gone`, matching the 404 story.
   notification through the pooler — and passes since `listen_conninfo`.
   Full suite on Neon: 117 passed.
 
-## 6. Questions to answer yourself
+## 6. Design Q&A
 
 1. Why does the event carry state *re-read from the database* instead of the
    new step that rang the bell?
@@ -102,7 +102,7 @@ tenant's run gets `event: gone`, matching the 404 story.
    not once per viewer. The endpoint's contract wouldn't change.
 </details>
 
-## 7. Interview lines
+## 7. Key points
 
 - "The live page is LISTEN/NOTIFY end to end: a trigger rings on every ledger
   commit, the stream re-reads through the same tenant-scoped repository as

@@ -126,7 +126,7 @@ refuse to offer it anyway).
 | workers log "preflight: ANTHROPIC_API_KEY not set" | expected while the server is $0-only | nothing to do; demo runs don't need it |
 | "out of capacity" creating the VM | free ARM capacity is busy in that region | another availability domain, or retry later |
 
-## 6. Questions to answer yourself
+## 6. Design Q&A
 
 1. Why can't a visitor of the public page spend your Anthropic credits?
 2. Why does killing a worker on the server not break the demo?

@@ -82,7 +82,7 @@ id, the retry carried the replay header, the same key with another domain got
 - malformed keys (256 characters, a tab, non-ASCII) → 400
 - **8 parallel retries with one key → eight 202s, one run id, 1 row**
 
-## 7. Questions to answer yourself
+## 7. Design Q&A
 
 1. Why must the key row commit in the same transaction as the run?
 2. A tenant is at its concurrency cap and retries a POST that already
@@ -112,7 +112,7 @@ id, the retry carried the replay header, the same key with another domain got
    committed key with a matching body hash and returns that run.
 </details>
 
-## 8. Interview lines
+## 8. Key points
 
 - "Idempotency has three layers in Relay: a client Idempotency-Key on run
   creation, a per-tool-call key in front of every write, and a unique constraint

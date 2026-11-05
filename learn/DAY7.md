@@ -110,7 +110,7 @@ Both kill runs: `scripts/check_run.py` OK (15 rows, 4 `model_call`, no gaps).
 Both temporary sleeps were removed and never committed (`git checkout` of
 `tools.py`, then a rebuild).
 
-## 6. Questions to answer yourself
+## 6. Design Q&A
 
 1. Why is the key built from the tool call id and not from the step index?
 2. The worker dies right after the receipt row is inserted as `in_flight`. Is it
@@ -150,7 +150,7 @@ Both temporary sleeps were removed and never committed (`git checkout` of
 
 </details>
 
-## 7. Interview lines
+## 7. Key points
 
 - "Every write tool call gets an idempotency key before it runs. The write and
   the key's 'done' mark commit in one transaction, so a retry either finds the

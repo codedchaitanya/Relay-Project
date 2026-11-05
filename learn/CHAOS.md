@@ -99,7 +99,7 @@ write tool's receipt path.
   summary: `chaos/results.json`.
 - Re-create the summary from the raw lines: `python -m chaos.crash_test --summary`.
 
-## 7. Questions to answer yourself
+## 7. Design Q&A
 
 1. Why is the median time to resume almost exactly the lease length?
 2. Why does the harness kill the *owner* of the run instead of a random worker?
@@ -131,7 +131,7 @@ write tool's receipt path.
 
 </details>
 
-## 8. Interview lines
+## 8. Key points
 
 - "I wrote a chaos harness that starts a run, kills the worker that owns it at a
   random moment, and checks the ledger. Over 200 runs, 196 were killed

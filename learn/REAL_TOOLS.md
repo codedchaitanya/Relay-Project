@@ -115,7 +115,7 @@ traffic through a proxy, which the pinned fetcher deliberately doesn't use. So
 real fetches are expected to work on a normal host (the EC2 deployment, a
 laptop), and may be blocked inside such a container.
 
-## 7. Questions to answer yourself
+## 7. Design Q&A
 
 1. What is DNS rebinding, and which single line in `fetch_page` closes it?
 2. If Relay connects to an IP, why does the TLS certificate still protect us?
@@ -149,7 +149,7 @@ laptop), and may be blocked inside such a container.
    what the real system shows the model.
 </details>
 
-## 8. Interview lines
+## 8. Key points
 
 - "The page fetcher closes DNS rebinding: it connects to the IP address the SSRF
   guard approved, never re-resolving, while TLS still verifies the certificate

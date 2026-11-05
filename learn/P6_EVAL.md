@@ -75,7 +75,7 @@ sets the real bar after the first live eval.
 `python -m evals.run_eval --mode live --yes-spend` (estimate for 50 labels: about
 $0.40 = 50 × $0.006 runs + 50 × $0.002 judge), after the owner's go.
 
-## 6. Questions to answer yourself
+## 6. Design Q&A
 
 1. Why report precision *and* accuracy instead of one score?
 2. Why is a flagged field not counted as wrong?
@@ -103,7 +103,7 @@ $0.40 = 50 × $0.006 runs + 50 × $0.002 judge), after the owner's go.
    Industry is the only free-text field where "same meaning" needs judgement.
 </details>
 
-## 7. Interview lines
+## 7. Key points
 
 - "The eval separates accuracy from precision, and an agent that flags a field
   instead of guessing is scored as abstaining, so the metric rewards the

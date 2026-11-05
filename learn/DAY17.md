@@ -64,7 +64,7 @@ New dependencies (first since Day 1, reason recorded here): `prometheus-client`
   `executed_twice == 0` on live data, and a span's trace id ends up on the
   ledger row written inside it.
 
-## 5. Questions to answer yourself
+## 5. Design Q&A
 
 1. Why is computing metrics at scrape time *more* correct here than counters,
    when every monitoring guide teaches counters?
@@ -100,7 +100,7 @@ New dependencies (first since Day 1, reason recorded here): `prometheus-client`
    update — the collector's interface doesn't change.
 </details>
 
-## 6. Interview lines
+## 6. Key points
 
 - "I didn't instrument the workers — I made the ledger the metrics source: a
   custom Prometheus collector aggregates it at scrape time, so the numbers

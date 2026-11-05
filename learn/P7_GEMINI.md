@@ -168,7 +168,7 @@ adapter against `httpx2.MockTransport`.
 **The real check** — 5 real runs on the free tier, $0 — is in §9, including the
 two things it found that the tests could not.
 
-## 8. Questions to answer yourself
+## 8. Design Q&A
 
 1. A visitor's real-AI run gets the real model but canned search results. Is
    that still an honest demo, or does the page need to say it louder?
@@ -398,7 +398,7 @@ Not checked: why `a8bee82e` stopped, which worker event caused the takeover in `
 successful `gemini-3.8-flash` run on Render. A 429 shows the request reached Google, not that the
 model answers there. That path has still only worked locally, with forced failures.
 
-## 10. Interview lines
+## 10. Key points
 
 - "The adapter is 300 lines and the loop didn't change, because durability
   lives in the ledger, not in the provider. Swapping Claude for Gemini meant
