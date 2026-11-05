@@ -46,7 +46,7 @@ The default setup uses a built-in scripted model, so it makes no paid calls and 
 The zip holds the code with no git history, so your repo starts clean.
 
 1. Unzip it somewhere with a short path, such as `C:\dev\relay` on Windows. A very long path makes `pip install` fail with "No such file or directory".
-2. Point the project's links at your repo. Find and replace `sakshiroy2026/relay` with `YOUR-USERNAME/relay` in `relay/api/static/index.html` (5 links) and `learn/DEPLOY.md` (1 link).
+2. Point the project's links at your repo. Find and replace `codedchaitanya/Relay-Project` with `YOUR-USERNAME/relay` in `relay/api/static/index.html` (5 links) and `learn/DEPLOY.md` (1 link).
 3. Create an empty repo at [github.com/new](https://github.com/new), named `relay`. Don't add a README, .gitignore or license.
 4. Push the code:
 

@@ -61,7 +61,7 @@ to the server's public IP → update.
 curl -fsSL https://get.docker.com | sudo sh
 sudo usermod -aG docker ubuntu && exit        # log out and back in for the group to apply
 ssh ubuntu@<public IP>
-git clone https://github.com/sakshiroy2026/relay.git && cd relay
+git clone https://github.com/codedchaitanya/Relay-Project.git relay && cd relay
 ```
 
 **6. Write `.env`** (secrets live only here, on the server):
