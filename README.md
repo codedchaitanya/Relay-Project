@@ -1,4 +1,6 @@
-# Relay
+**Demo: Relay, a crash-safe runtime for LLM agents** ([source](https://github.com/sakshiroy2026/relay)). A real Gemini run on the live site, killed mid-run and resumed by a second worker.
+
+https://github.com/user-attachments/assets/6bdd1153-fbc1-4a03-b3ed-5061b4431dc6
 
 **A durable execution runtime for LLM agents.**
 
